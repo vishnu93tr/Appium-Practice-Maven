@@ -1,4 +1,4 @@
-package Tests;
+package Tests.Ecommerce;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
