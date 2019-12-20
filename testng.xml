@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TestNGXMLTest Test Suite" >
-    <test thread-count="5" name="TestNGXMLTest Test" verbose="2">
+    <test  name="TestNGXMLTest Test">
         <classes>
+            <class name="Tests.Ecommerce.TotalAmountTest" />
+            <class name="Tests.Ecommerce.Ecommerce_tc_1_Test"/>
+            <class name="Tests.Ecommerce.ToastMessageTest"/>
             <class name="Tests.Ecommerce.AddToCartTest"/>
             <class name="Tests.Ecommerce.HybridAppTest"/>
         </classes>
