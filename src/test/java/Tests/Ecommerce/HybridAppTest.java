@@ -13,10 +13,10 @@ import java.net.MalformedURLException;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-public class HybridApp  extends Base
+public class HybridAppTest extends Base
 {
     @Test
-    public void HybridApp() throws MalformedURLException, InterruptedException {
+    public void HybridAppTest() throws MalformedURLException, InterruptedException {
         AndroidDriver<AndroidElement> driver=Capabilities("emulator");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 

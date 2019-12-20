@@ -32,6 +32,7 @@ public class Base
             }
 
             capabilities.setCapability("automationName", "uiautomator2");
+            capabilities.setCapability("adbExecTimeout",50000);
             capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, PACKAGE);
             capabilities.setCapability(AndroidMobileCapabilityType.APP_WAIT_ACTIVITY, ACTIVITY);
 

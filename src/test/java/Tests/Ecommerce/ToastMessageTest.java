@@ -10,10 +10,10 @@ import org.testng.annotations.Test;
 import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
-public class ToastMessage extends Base
+public class ToastMessageTest extends Base
 {
     @Test
-    public void  ToastMessages() throws MalformedURLException
+    public void  ToastMessagesTest() throws MalformedURLException
     {
         AndroidDriver<AndroidElement> driver=Capabilities("emulator");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);

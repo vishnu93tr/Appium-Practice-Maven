@@ -16,10 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class TotalAmount  extends Base
+public class TotalAmountTest  extends Base
 {
     @Test
-    public void  TotalAmount() throws MalformedURLException
+    public void  TotalAmountTest() throws MalformedURLException
     {
         List<Double> price_al=new ArrayList<>();
         double sum=0.0;

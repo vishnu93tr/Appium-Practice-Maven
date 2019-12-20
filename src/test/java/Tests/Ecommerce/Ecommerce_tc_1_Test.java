@@ -9,10 +9,10 @@ import org.testng.annotations.Test;
 import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
-public class Ecommerce_tc_1 extends Base
+public class Ecommerce_tc_1_Test extends Base
 {
     @Test
-    public void  test1() throws MalformedURLException
+    public void  test1Test() throws MalformedURLException
     {
         AndroidDriver<AndroidElement> driver=Capabilities("emulator");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
