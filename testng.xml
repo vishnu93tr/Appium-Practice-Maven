@@ -3,11 +3,8 @@
 <suite name="TestNGXMLTest Test Suite" >
     <test thread-count="5" name="TestNGXMLTest Test" verbose="2">
         <classes>
-            <class name="Tests.Ecommerce.TotalAmountTest" />
-            <class name="Tests.Ecommerce.Ecommerce_tc_1_Test"/>
-            <class name="Tests.Ecommerce.ToastMessageTest"/>
             <class name="Tests.Ecommerce.AddToCartTest"/>
-            <class name="Tests.Ecommerce.HybridAppTest"></class>
+            <class name="Tests.Ecommerce.HybridAppTest"/>
         </classes>
     </test>
 </suite>
