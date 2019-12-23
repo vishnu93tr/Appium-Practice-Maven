@@ -30,7 +30,7 @@ public class HybridAppTest extends Base
         driver.findElementById("com.androidsample.generalstore:id/appbar_btn_cart").click();
         driver.findElementByClassName("android.widget.CheckBox").click();
         driver.findElementById("com.androidsample.generalstore:id/btnProceed").click();
-        Thread.sleep(10000);
+        Thread.sleep(30000);
         Set<String> contextNames =driver.getContextHandles();
         for(String contextName:contextNames)
         {
