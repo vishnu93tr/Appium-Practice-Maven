@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class Ecommerce_tc_1_Test extends Base
 {
     @Test
-    public void  test1Test() throws MalformedURLException
+    public void  test1() throws MalformedURLException
     {
         AppiumDriverLocalService service = AppiumDriverLocalService.buildDefaultService();
         service.start();
