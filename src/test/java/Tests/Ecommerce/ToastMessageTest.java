@@ -1,6 +1,7 @@
 package Tests.Ecommerce;
 
-import Tests.Ecommerce.Base;
+import Base.Base;
+import PageObjects.HomePage;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
@@ -8,26 +9,21 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
 public class ToastMessageTest extends Base
 {
     @Test
-    public void  ToastMessagesTest() throws MalformedURLException
-    {
+    public void  ToastMessagesTest() throws IOException {
         AppiumDriverLocalService service = AppiumDriverLocalService.buildDefaultService();
         service.start();
-        AndroidDriver<AndroidElement> driver=Capabilities("emulator");
+        AndroidDriver<AndroidElement> driver=Capabilities("GeneralStoreApp");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-
-        driver.findElementById("com.androidsample.generalstore:id/btnLetsShop").click();
-
-       String text= driver.findElementByXPath("//android.widget.Toast[1]").getAttribute("name");
-
-        System.out.println(text);
-
+        HomePage homePage=new HomePage(driver);
+        homePage.LetsShopButton.click();
+        String text=homePage.ToastMessage.getAttribute("name");
         Assert.assertEquals(text,"Please enter your name","expected message and actual are not same");
         service.stop();
     }

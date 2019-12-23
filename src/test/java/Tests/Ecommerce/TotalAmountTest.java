@@ -1,6 +1,9 @@
 package Tests.Ecommerce;
 
-import Tests.Ecommerce.Base;
+import Base.Base;
+import PageObjects.FinalPage;
+import PageObjects.HomePage;
+import PageObjects.ProductsPage;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
@@ -11,6 +14,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -20,45 +24,44 @@ import java.util.concurrent.TimeUnit;
 public class TotalAmountTest  extends Base
 {
     @Test
-    public void  TotalAmountTest() throws MalformedURLException
-    {
+    public void  TotalAmountTest() throws IOException {
         AppiumDriverLocalService service = AppiumDriverLocalService.buildDefaultService();
         service.start();
         List<Double> price_al=new ArrayList<>();
         double sum=0.0;
-        AndroidDriver<AndroidElement> driver=Capabilities("emulator");
+        AndroidDriver<AndroidElement> driver=Capabilities("GeneralStoreApp");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-        driver.findElementById("com.androidsample.generalstore:id/nameField").sendKeys("Hello!");
-        driver.findElementById("com.androidsample.generalstore:id/btnLetsShop").click();
-
-      int size=driver.findElementsById("com.androidsample.generalstore:id/productAddCart").size();
+        HomePage homePage=new HomePage(driver);
+        homePage.yourName.sendKeys("Hello!");
+        homePage.LetsShopButton.click();
+        ProductsPage productsPage=new ProductsPage(driver);
+        int size=productsPage.ProductList.size();
       for(int i=0;i<size;i++)
       {
-          driver.findElementsById("com.androidsample.generalstore:id/productAddCart").get(i).click();
+          productsPage.ProductList.get(i).click();
       }
-      driver.findElementById("com.androidsample.generalstore:id/appbar_btn_cart").click();
-      int checkout_size=driver.findElementsById("com.androidsample.generalstore:id/productPrice").size();
+      productsPage.AddToCart.click();
+        FinalPage finalPage=new FinalPage(driver);
+        int checkout_size=finalPage.productPrice.size();
       for(int i=0;i<checkout_size;i++)
       {
-          String price=driver.findElementsById("com.androidsample.generalstore:id/productPrice").get(i).getText();
+          String price=finalPage.productPrice.get(i).getText();
           price_al.add(Double.parseDouble(price.replace("$","")));
       }
       for(Double ref:price_al)
       {
             sum+=ref;
       }
-      String final_price=driver.findElementById("com.androidsample.generalstore:id/totalAmountLbl").getText();
+        String final_price=finalPage.TotalAmount.getText();
       double final_sum=Double.parseDouble(final_price.replace("$",""));
       Assert.assertEquals(final_sum,sum,"final sum and actual sum are not equal");
 
-      //MOBILE GESTURES
-        driver.findElementByClassName("android.widget.CheckBox").click();
-        WebElement terms=driver.findElementById("com.androidsample.generalstore:id/termsButton");
+        finalPage.CheckBox.click();
+        WebElement terms= finalPage.TermsButton;
         TouchAction touchAction=new TouchAction(driver);
         touchAction.longPress(new LongPressOptions().withElement(new ElementOption().withElement(terms)).withDuration(Duration.ofSeconds(3))).release().perform();
-        driver.findElementById("android:id/button1").click();
-        driver.findElementById("com.androidsample.generalstore:id/btnProceed").click();
+        finalPage.CloseTermsandConditions.click();
+        finalPage.ProceedButton.click();
         service.stop();
 
     }

@@ -7,6 +7,8 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import javax.xml.xpath.XPath;
+
 public class HomePage
 {
     public HomePage(AppiumDriver driver)
@@ -18,4 +20,6 @@ public class HomePage
     public AndroidElement yourName;
     @AndroidFindBy(id = "com.androidsample.generalstore:id/btnLetsShop")
     public AndroidElement LetsShopButton;
+    @AndroidFindBy(xpath="//android.widget.Toast[1]")
+    public AndroidElement ToastMessage;
 }
