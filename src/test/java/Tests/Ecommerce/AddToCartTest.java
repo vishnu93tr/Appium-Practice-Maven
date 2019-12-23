@@ -21,9 +21,14 @@ public class AddToCartTest extends Base
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.androidsample.generalstore:id/nameField")));
-        driver.findElementById("com.androidsample.generalstore:id/nameField").sendKeys("Hello!");
+        try {
+            driver.findElementById("com.androidsample.generalstore:id/nameField").sendKeys("Hello!");
+        }
+        catch (StaleElementReferenceException e){
+            driver.findElementById("com.androidsample.generalstore:id/nameField").sendKeys("Hello!");
+            e.printStackTrace();
+        }
         driver.findElementById("com.androidsample.generalstore:id/btnLetsShop").click();
-
                     driver
                     .findElementByAndroidUIAutomator("new UiScrollable(new UiSelector()"
                         + ".resourceId(\"com.androidsample.generalstore:id/rvProductList\")).scrollIntoView("
