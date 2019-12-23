@@ -2,7 +2,9 @@ package Tests.Ecommerce;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -18,7 +20,7 @@ public class AddToCartTest extends Base
         AndroidDriver<AndroidElement> driver=Capabilities("emulator");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         WebDriverWait wait = new WebDriverWait(driver, 10);
-
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.androidsample.generalstore:id/nameField")));
         driver.findElementById("com.androidsample.generalstore:id/nameField").sendKeys("Hello!");
         driver.findElementById("com.androidsample.generalstore:id/btnLetsShop").click();
 
