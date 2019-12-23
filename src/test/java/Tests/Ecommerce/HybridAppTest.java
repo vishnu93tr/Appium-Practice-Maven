@@ -5,6 +5,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
@@ -17,6 +18,8 @@ public class HybridAppTest extends Base
 {
     @Test
     public void HybridAppTest() throws MalformedURLException, InterruptedException {
+        AppiumDriverLocalService service = AppiumDriverLocalService.buildDefaultService();
+        service.start();
         AndroidDriver<AndroidElement> driver=Capabilities("emulator");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
@@ -40,5 +43,6 @@ public class HybridAppTest extends Base
        driver.findElement(By.name("q")).sendKeys("hello");
        driver.findElement(By.name("q")).sendKeys(Keys.ENTER);
        driver.pressKey(new KeyEvent(AndroidKey.BACK));
+       service.stop();
     }
 }

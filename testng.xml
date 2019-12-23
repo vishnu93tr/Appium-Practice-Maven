@@ -6,6 +6,8 @@
             <class name="Tests.Ecommerce.TotalAmountTest" />
             <class name="Tests.Ecommerce.Ecommerce_tc_1_Test"/>
             <class name="Tests.Ecommerce.ToastMessageTest"/>
+            <class name="Tests.Ecommerce.HybridAppTest"/>
+            <class name="Tests.Ecommerce.AddToCartTest"/>
         </classes>
     </test>
 </suite>

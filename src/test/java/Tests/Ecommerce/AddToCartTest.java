@@ -2,6 +2,7 @@ package Tests.Ecommerce;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,6 +18,8 @@ public class AddToCartTest extends Base
     @Test
     public void  AddToCartTest() throws MalformedURLException
     {
+        AppiumDriverLocalService service = AppiumDriverLocalService.buildDefaultService();
+        service.start();
         AndroidDriver<AndroidElement> driver=Capabilities("emulator");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -50,7 +53,9 @@ public class AddToCartTest extends Base
             System.out.println(driver.findElementById("com.androidsample.generalstore:id/productName").getText());
             Assert.assertTrue(driver.findElementById("com.androidsample.generalstore:id/productName").getText().equalsIgnoreCase("Jordan 6 Rings"));
         }
+        service.stop();
         }
+
         }
 
 

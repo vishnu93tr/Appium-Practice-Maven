@@ -4,6 +4,7 @@ import Tests.Ecommerce.Base;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.touch.LongPressOptions;
 import io.appium.java_client.touch.offset.ElementOption;
 import org.openqa.selenium.WebElement;
@@ -21,6 +22,8 @@ public class TotalAmountTest  extends Base
     @Test
     public void  TotalAmountTest() throws MalformedURLException
     {
+        AppiumDriverLocalService service = AppiumDriverLocalService.buildDefaultService();
+        service.start();
         List<Double> price_al=new ArrayList<>();
         double sum=0.0;
         AndroidDriver<AndroidElement> driver=Capabilities("emulator");
@@ -56,7 +59,7 @@ public class TotalAmountTest  extends Base
         touchAction.longPress(new LongPressOptions().withElement(new ElementOption().withElement(terms)).withDuration(Duration.ofSeconds(3))).release().perform();
         driver.findElementById("android:id/button1").click();
         driver.findElementById("com.androidsample.generalstore:id/btnProceed").click();
-
+        service.stop();
 
     }
 }
