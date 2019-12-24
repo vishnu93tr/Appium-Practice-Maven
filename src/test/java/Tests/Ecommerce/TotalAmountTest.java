@@ -53,7 +53,7 @@ public class TotalAmountTest  extends Base
             sum+=ref;
       }
         String final_price=finalPage.TotalAmount.getText();
-      double final_sum=Double.parseDouble(final_price.replace("$",""));
+        double final_sum=Double.parseDouble(final_price.replace("$",""));
       Assert.assertEquals(final_sum,sum,"final sum and actual sum are not equal");
 
         finalPage.CheckBox.click();

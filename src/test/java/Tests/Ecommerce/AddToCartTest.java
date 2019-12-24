@@ -1,57 +1,52 @@
 package Tests.Ecommerce;
 
+import Base.Base;
+import PageObjects.FinalPage;
+import PageObjects.HomePage;
+import PageObjects.ProductsPage;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
-import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+
 
 public class AddToCartTest extends Base
 {
     @Test
-    public void  AddToCartTest() throws MalformedURLException
-    {
+    public void  AddToCartTest() throws IOException {
         AppiumDriverLocalService service = AppiumDriverLocalService.buildDefaultService();
         service.start();
-        AndroidDriver<AndroidElement> driver=Capabilities("emulator");
+        AndroidDriver<AndroidElement> driver=Capabilities("GeneralStoreApp");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.androidsample.generalstore:id/nameField")));
-        try {
-            driver.findElementById("com.androidsample.generalstore:id/nameField").sendKeys("Hello!");
-        }
-        catch (StaleElementReferenceException e){
-            driver.findElementById("com.androidsample.generalstore:id/nameField").sendKeys("Hello!");
-            e.printStackTrace();
-        }
-        driver.findElementById("com.androidsample.generalstore:id/btnLetsShop").click();
+            HomePage homePage=new HomePage(driver);
+            homePage.yourName.sendKeys("Hello!");
+            homePage.LetsShopButton.click();
+            ProductsPage productsPage=new ProductsPage(driver);
                     driver
                     .findElementByAndroidUIAutomator("new UiScrollable(new UiSelector()"
                         + ".resourceId(\"com.androidsample.generalstore:id/rvProductList\")).scrollIntoView("
                         + "new UiSelector().text(\"Jordan 6 Rings\"));");
-        int size= driver.findElementsById("com.androidsample.generalstore:id/productName").size();
+        int size= productsPage.CurrentScreenElements.size();
+
         for(int i=0;i<size;i++){
-            if(driver.findElementsById("com.androidsample.generalstore:id/productName").get(i).getText().equalsIgnoreCase("Jordan 6 Rings"))
+            if(productsPage.CurrentScreenElements.get(i).getText().equalsIgnoreCase("Jordan 6 Rings"))
             {
-                driver.findElementById("com.androidsample.generalstore:id/productAddCart").click();
+                productsPage.Product.click();
             }
         }
-       driver.findElementById("com.androidsample.generalstore:id/appbar_btn_cart").click();
+        productsPage.AddToCart.click();
+        FinalPage finalPage=new FinalPage(driver);
         try {
-            Assert.assertTrue(driver.findElementById("com.androidsample.generalstore:id/productName").getText().equalsIgnoreCase("Jordan 6 Rings"));
+            Assert.assertTrue(finalPage.ProductName.getText().equalsIgnoreCase("Jordan 6 Rings"));
         }
         catch (StaleElementReferenceException e)
         {
-            System.out.println("catch block");
-            System.out.println(driver.findElementById("com.androidsample.generalstore:id/productName").getText());
-            Assert.assertTrue(driver.findElementById("com.androidsample.generalstore:id/productName").getText().equalsIgnoreCase("Jordan 6 Rings"));
+            e.printStackTrace();
         }
         service.stop();
         }

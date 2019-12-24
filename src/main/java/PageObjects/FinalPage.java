@@ -27,4 +27,6 @@ public class FinalPage
    public AndroidElement CloseTermsandConditions;
    @AndroidFindBy(id = "com.androidsample.generalstore:id/btnProceed")
    public AndroidElement ProceedButton;
+    @AndroidFindBy(id="com.androidsample.generalstore:id/productName")
+    public AndroidElement ProductName;
 }

@@ -18,8 +18,12 @@ public class ProductsPage
 
     @AndroidFindBy(id="com.androidsample.generalstore:id/productAddCart")
     public List<AndroidElement> ProductList;
-    //driver.findElementById("com.androidsample.generalstore:id/appbar_btn_cart").click();
     @AndroidFindBy(id="com.androidsample.generalstore:id/appbar_btn_cart")
     public AndroidElement AddToCart;
+    @AndroidFindBy(id="com.androidsample.generalstore:id/productName")
+    public List<AndroidElement> CurrentScreenElements;
+    @AndroidFindBy(id="com.androidsample.generalstore:id/productAddCart")
+    public AndroidElement Product;
+
 
 }

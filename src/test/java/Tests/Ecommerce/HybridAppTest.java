@@ -1,6 +1,10 @@
 package Tests.Ecommerce;
 
-import Tests.Ecommerce.Base;
+import Base.Base;
+import PageObjects.ChromePage;
+import PageObjects.FinalPage;
+import PageObjects.HomePage;
+import PageObjects.ProductsPage;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.nativekey.AndroidKey;
@@ -10,38 +14,41 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class HybridAppTest extends Base
 {
     @Test
-    public void HybridAppTest() throws MalformedURLException, InterruptedException {
+    public void HybridAppTest() throws IOException, InterruptedException {
         AppiumDriverLocalService service = AppiumDriverLocalService.buildDefaultService();
         service.start();
-        AndroidDriver<AndroidElement> driver=Capabilities("emulator");
+        AndroidDriver<AndroidElement> driver=Capabilities("GeneralStoreApp");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-        driver.findElementById("com.androidsample.generalstore:id/nameField").sendKeys("Hello!");
-        driver.findElementById("com.androidsample.generalstore:id/btnLetsShop").click();
-        int size=driver.findElementsById("com.androidsample.generalstore:id/productAddCart").size();
+        HomePage homePage=new HomePage(driver);
+        homePage.yourName.sendKeys("Hello");
+        homePage.LetsShopButton.click();
+        ProductsPage productsPage=new ProductsPage(driver);
+        int size=productsPage.ProductList.size();
         for(int i=0;i<size;i++)
         {
-            driver.findElementsById("com.androidsample.generalstore:id/productAddCart").get(i).click();
+            productsPage.ProductList.get(i).click();
         }
-        driver.findElementById("com.androidsample.generalstore:id/appbar_btn_cart").click();
-        driver.findElementByClassName("android.widget.CheckBox").click();
-        driver.findElementById("com.androidsample.generalstore:id/btnProceed").click();
-        Thread.sleep(30000);
+        productsPage.AddToCart.click();
+        FinalPage finalPage=new FinalPage(driver);
+        finalPage.CheckBox.click();
+        finalPage.ProceedButton.click();
+        Thread.sleep(10000);
         Set<String> contextNames =driver.getContextHandles();
         for(String contextName:contextNames)
         {
             System.out.println(contextName);
         }
        driver.context("WEBVIEW_com.androidsample.generalstore");
-       driver.findElement(By.name("q")).sendKeys("hello");
-       driver.findElement(By.name("q")).sendKeys(Keys.ENTER);
+        ChromePage chromePage=new ChromePage(driver);
+        chromePage.ChromeText.sendKeys("hello");
+        chromePage.ChromeText.sendKeys(Keys.ENTER);
        driver.pressKey(new KeyEvent(AndroidKey.BACK));
        service.stop();
     }
