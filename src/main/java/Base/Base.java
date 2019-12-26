@@ -40,7 +40,7 @@ public class Base
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("app", fs.getAbsolutePath());
             capabilities.setCapability("autoGrantPermissions",true);
-            String device= (String) properties.get("Device");
+            String device= System.getProperty("deviceName");
             if(device.contains("emulator"))
             {
                 StartEmulator();
