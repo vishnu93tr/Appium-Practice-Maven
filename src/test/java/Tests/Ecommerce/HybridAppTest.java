@@ -2,15 +2,14 @@ package Tests.Ecommerce;
 
 import Base.Base;
 import PageObjects.ChromePage;
-import PageObjects.FinalPage;
-import PageObjects.HomePage;
-import PageObjects.ProductsPage;
+import PageObjects.CheckOutPage;
+import PageObjects.FormPage;
+import PageObjects.ProductsHomePage;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 
@@ -21,24 +20,24 @@ import java.util.concurrent.TimeUnit;
 public class HybridAppTest extends Base
 {
     @Test
-    public void HybridAppTest() throws IOException, InterruptedException {
-        AppiumDriverLocalService service = AppiumDriverLocalService.buildDefaultService();
-        service.start();
+    public void HybridAppTest() throws IOException, InterruptedException
+    {
+        AppiumDriverLocalService service=StartServer();
         AndroidDriver<AndroidElement> driver=Capabilities("GeneralStoreApp");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        HomePage homePage=new HomePage(driver);
-        homePage.yourName.sendKeys("Hello");
-        homePage.LetsShopButton.click();
-        ProductsPage productsPage=new ProductsPage(driver);
+        FormPage formPage =new FormPage(driver);
+        formPage.yourName.sendKeys("Hello");
+        formPage.LetsShopButton.click();
+        ProductsHomePage productsPage=new ProductsHomePage(driver);
         int size=productsPage.ProductList.size();
         for(int i=0;i<size;i++)
         {
             productsPage.ProductList.get(i).click();
         }
         productsPage.AddToCart.click();
-        FinalPage finalPage=new FinalPage(driver);
-        finalPage.CheckBox.click();
-        finalPage.ProceedButton.click();
+        CheckOutPage checkOutPage =new CheckOutPage(driver);
+        checkOutPage.CheckBox.click();
+        checkOutPage.ProceedButton.click();
         Thread.sleep(10000);
         Set<String> contextNames =driver.getContextHandles();
         for(String contextName:contextNames)

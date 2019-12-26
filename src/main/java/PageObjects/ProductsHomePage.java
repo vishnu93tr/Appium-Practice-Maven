@@ -8,9 +8,9 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class ProductsPage
+public class ProductsHomePage
 {
-    public ProductsPage(AppiumDriver driver)
+    public ProductsHomePage(AppiumDriver driver)
     {
         PageFactory pageFactory=new PageFactory();
         pageFactory.initElements(new AppiumFieldDecorator(driver),this);
@@ -24,6 +24,8 @@ public class ProductsPage
     public List<AndroidElement> CurrentScreenElements;
     @AndroidFindBy(id="com.androidsample.generalstore:id/productAddCart")
     public AndroidElement Product;
+
+
 
 
 }

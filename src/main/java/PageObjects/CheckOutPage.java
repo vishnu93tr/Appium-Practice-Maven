@@ -8,9 +8,9 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class FinalPage
+public class CheckOutPage
 {
-    public FinalPage(AppiumDriver driver)
+    public CheckOutPage(AppiumDriver driver)
     {
         PageFactory pageFactory=new PageFactory();
         pageFactory.initElements(new AppiumFieldDecorator(driver),this);

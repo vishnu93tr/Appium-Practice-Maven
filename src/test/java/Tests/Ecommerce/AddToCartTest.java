@@ -1,15 +1,17 @@
 package Tests.Ecommerce;
 
 import Base.Base;
-import PageObjects.FinalPage;
-import PageObjects.HomePage;
-import PageObjects.ProductsPage;
+import PageObjects.CheckOutPage;
+import PageObjects.FormPage;
+import PageObjects.ProductsHomePage;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import utilities.Utilities;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -17,38 +19,44 @@ import java.util.concurrent.TimeUnit;
 
 public class AddToCartTest extends Base
 {
+    String scrollElement="com.androidsample.generalstore:id/rvProductList";
     @Test
-    public void  AddToCartTest() throws IOException {
-        AppiumDriverLocalService service = AppiumDriverLocalService.buildDefaultService();
-        service.start();
+    public void  AddToCartTest() throws IOException, InterruptedException {
+        AppiumDriverLocalService service=StartServer();
         AndroidDriver<AndroidElement> driver=Capabilities("GeneralStoreApp");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-            HomePage homePage=new HomePage(driver);
-            homePage.yourName.sendKeys("Hello!");
-            homePage.LetsShopButton.click();
-            ProductsPage productsPage=new ProductsPage(driver);
-                    driver
-                    .findElementByAndroidUIAutomator("new UiScrollable(new UiSelector()"
-                        + ".resourceId(\"com.androidsample.generalstore:id/rvProductList\")).scrollIntoView("
-                        + "new UiSelector().text(\"Jordan 6 Rings\"));");
-        int size= productsPage.CurrentScreenElements.size();
+            FormPage formPage =new FormPage(driver);
+            formPage.yourName.sendKeys("Hello!");
+            formPage.LetsShopButton.click();
+          ProductsHomePage productsHomePage =new ProductsHomePage(driver);
+        Utilities utilities=new Utilities(driver);
+        utilities.Scroll(scrollElement,"Jordan 6 Rings");
+        int size= productsHomePage.CurrentScreenElements.size();
 
         for(int i=0;i<size;i++){
-            if(productsPage.CurrentScreenElements.get(i).getText().equalsIgnoreCase("Jordan 6 Rings"))
+            if(productsHomePage.CurrentScreenElements.get(i).getText().equalsIgnoreCase("Jordan 6 Rings"))
             {
-                productsPage.Product.click();
+                productsHomePage.Product.click();
             }
         }
-        productsPage.AddToCart.click();
-        FinalPage finalPage=new FinalPage(driver);
+        productsHomePage.AddToCart.click();
+        CheckOutPage checkOutPage =new CheckOutPage(driver);
         try {
-            Assert.assertTrue(finalPage.ProductName.getText().equalsIgnoreCase("Jordan 6 Rings"));
+            Assert.assertTrue(checkOutPage.ProductName.getText().equalsIgnoreCase("Jordan 6 Rings"));
         }
         catch (StaleElementReferenceException e)
         {
-            e.printStackTrace();
+            System.out.println(checkOutPage.ProductName.getText().equalsIgnoreCase("Jordan 6 Rings"));
+            Assert.assertTrue(checkOutPage.ProductName.getText().equalsIgnoreCase("Jordan 6 Rings"));
+            e.toString();
         }
         service.stop();
+
+        }
+        @BeforeTest
+        public void killAllNodes() throws IOException
+        {
+            Runtime.getRuntime().exec("taskkill /F /IM node.exe");
         }
 
         }

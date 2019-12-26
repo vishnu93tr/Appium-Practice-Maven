@@ -3,13 +3,13 @@ package Base;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.net.ServerSocket;
 import java.net.URL;
 import java.util.Properties;
 
@@ -18,8 +18,8 @@ public class Base
     private static final String ACTIVITY = "com.androidsample.generalstore.MainActivity";
     private static final String PACKAGE = "com.androidsample.generalstore";
     private static AndroidDriver<AndroidElement> driver;
-
-    public static AndroidDriver<AndroidElement> Capabilities(String appName) throws IOException {
+    AppiumDriverLocalService service;
+    public static AndroidDriver<AndroidElement> Capabilities(String appName) throws IOException, InterruptedException {
             Properties properties=new Properties();
             String path=System.getProperty("user.dir")+"\\src\\main\\global.properties";
             FileInputStream fileInputStream=new FileInputStream(path);
@@ -31,6 +31,10 @@ public class Base
             capabilities.setCapability("app", fs.getAbsolutePath());
             capabilities.setCapability("autoGrantPermissions",true);
             String device= (String) properties.get("Device");
+            if(device.contains("emulator"))
+            {
+                StartEmulator();
+            }
             capabilities.setCapability("deviceName", device);
 
             capabilities.setCapability("automationName", "uiautomator2");
@@ -43,6 +47,39 @@ public class Base
             System.out.println("setup successful");
             return  driver;
 
-
     }
+    public AppiumDriverLocalService StartServer()
+    {
+       boolean status= CheckServerIsRunning(4723);
+        if(!status)
+        {
+            service = AppiumDriverLocalService.buildDefaultService();
+            service.start();
+        }
+        return service;
+    }
+    public static Boolean CheckServerIsRunning(int port)
+    {
+        boolean isServerRunning=false;
+        ServerSocket serverSocket;
+        try
+        {
+            serverSocket=new ServerSocket(port);
+            serverSocket.close();
+        } catch (IOException e) {
+            isServerRunning=true;
+            e.printStackTrace();
+        }
+        finally {
+            serverSocket=null;
+        }
+        return isServerRunning;
+    }
+    public static void StartEmulator() throws IOException, InterruptedException
+    {
+        String path=System.getProperty("user.dir")+"\\src\\main\\resources\\startEmulator.bat";
+        Runtime.getRuntime().exec(path);
+        Thread.sleep(10000);
+    }
+
 }

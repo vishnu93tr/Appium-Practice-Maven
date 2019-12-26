@@ -9,9 +9,9 @@ import org.openqa.selenium.support.PageFactory;
 
 import javax.xml.xpath.XPath;
 
-public class HomePage
+public class FormPage
 {
-    public HomePage(AppiumDriver driver)
+    public FormPage(AppiumDriver driver)
     {
         PageFactory pageFactory=new PageFactory();
         pageFactory.initElements(new AppiumFieldDecorator(driver),this);
