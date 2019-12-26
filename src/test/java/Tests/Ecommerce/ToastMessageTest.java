@@ -15,7 +15,7 @@ public class ToastMessageTest extends Base
 {
     @Test
     public void  ToastMessagesTest() throws IOException, InterruptedException {
-        AppiumDriverLocalService service=StartServer();
+        AppiumDriverLocalService service=startServer();
         AndroidDriver<AndroidElement> driver=Capabilities("GeneralStoreApp");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         FormPage formPage =new FormPage(driver);

@@ -4,6 +4,9 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
@@ -17,9 +20,10 @@ public class Base
 {
     private static final String ACTIVITY = "com.androidsample.generalstore.MainActivity";
     private static final String PACKAGE = "com.androidsample.generalstore";
-    private static AndroidDriver<AndroidElement> driver;
-    AppiumDriverLocalService service;
-    public static AndroidDriver<AndroidElement> Capabilities(String appName) throws IOException, InterruptedException {
+    public static AndroidDriver<AndroidElement> driver;
+    public static AppiumDriverLocalService service;
+    public static AndroidDriver<AndroidElement> Capabilities(String appName) throws IOException, InterruptedException
+    {
             Properties properties=new Properties();
             String path=System.getProperty("user.dir")+"\\src\\main\\global.properties";
             FileInputStream fileInputStream=new FileInputStream(path);
@@ -48,38 +52,44 @@ public class Base
             return  driver;
 
     }
-    public AppiumDriverLocalService StartServer()
-    {
-       boolean status= CheckServerIsRunning(4723);
-        if(!status)
-        {
+    public AppiumDriverLocalService startServer() {
+        //
+        boolean flag = checkIfServerIsRunnning(4723);
+        if (!flag) {
+
             service = AppiumDriverLocalService.buildDefaultService();
             service.start();
         }
         return service;
     }
-    public static Boolean CheckServerIsRunning(int port)
-    {
-        boolean isServerRunning=false;
+    public static boolean checkIfServerIsRunnning(int port) {
+
+        boolean isServerRunning = false;
         ServerSocket serverSocket;
-        try
-        {
-            serverSocket=new ServerSocket(port);
+        try {
+            serverSocket = new ServerSocket(port);
+
             serverSocket.close();
         } catch (IOException e) {
-            isServerRunning=true;
-            e.printStackTrace();
-        }
-        finally {
-            serverSocket=null;
+            //If control comes here, then it means that the port is in use
+            isServerRunning = true;
+        } finally {
+            serverSocket = null;
         }
         return isServerRunning;
     }
     public static void StartEmulator() throws IOException, InterruptedException
     {
+
         String path=System.getProperty("user.dir")+"\\src\\main\\resources\\startEmulator.bat";
         Runtime.getRuntime().exec(path);
         Thread.sleep(10000);
+    }
+    public void getScreenshot(String testname) throws IOException
+    {
+        String path=System.getProperty("user.dir")+"\\src\\ScreenShots\\"+testname+".png";
+       File screenshot=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(screenshot,new File(path));
     }
 
 }

@@ -24,7 +24,7 @@ public class TotalAmountTest  extends Base
 {
     @Test
     public void  TotalAmountTest() throws IOException, InterruptedException {
-        AppiumDriverLocalService service=StartServer();
+        AppiumDriverLocalService service=startServer();
         List<Double> price_al=new ArrayList<>();
         double sum=0.0;
         AndroidDriver<AndroidElement> driver=Capabilities("GeneralStoreApp");

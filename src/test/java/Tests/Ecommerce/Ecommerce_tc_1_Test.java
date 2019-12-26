@@ -15,7 +15,7 @@ public class Ecommerce_tc_1_Test extends Base
 {
     @Test
     public void  basic() throws IOException, InterruptedException {
-        AppiumDriverLocalService service=StartServer();
+        AppiumDriverLocalService service=startServer();
         AndroidDriver<AndroidElement> driver=Capabilities("GeneralStoreApp");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         WebDriverWait wait = new WebDriverWait(driver, 10);
