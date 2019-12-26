@@ -1,0 +1,11 @@
+{
+  "cases": [
+    {
+      "name": "passing no characters and verifying toast message",
+      "case": {
+        "name": "",
+        "AssertText": "Please enter your name"
+      }
+    }
+  ]
+}

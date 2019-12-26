@@ -1,0 +1,29 @@
+{
+  "cases": [
+    {
+      "name": "passing characters only in name field",
+      "case": {
+        "name": "hello",
+        "texttoscroll": "Jordan 6 Rings",
+        "AssertText": "Jordan 6 Rings"
+      }
+    },
+    {
+      "name": "passing alpha numeric characters in name field",
+      "case": {
+        "name": "hello123",
+        "texttoscroll": "Jordan 6 Rings",
+        "AssertText": "Jordan 6 Rings"
+      }
+    }
+  ,
+    {
+      "name": "passing special characters only in name field",
+      "case": {
+        "name": "@#$%^&*()",
+        "texttoscroll": "Jordan 6 Rings",
+        "AssertText": "Jordan 6 Rings"
+      }
+    }
+  ]
+}

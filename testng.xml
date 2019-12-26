@@ -8,7 +8,7 @@
     <test  name="TestNGXMLTest Test">
         <classes>
             <class name="Tests.Ecommerce.AddToCartTest"/>
-            <class name="Tests.Ecommerce.HybridAppTest"/>
+            <class name="Tests.Ecommerce.ToastMessageTest"/>
         </classes>
     </test>
 </suite>
