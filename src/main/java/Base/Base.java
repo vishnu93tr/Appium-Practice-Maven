@@ -51,7 +51,6 @@ public class Base
             capabilities.setCapability("adbExecTimeout",50000);
             capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, PACKAGE);
             capabilities.setCapability(AndroidMobileCapabilityType.APP_WAIT_ACTIVITY, ACTIVITY);
-
             driver = new AndroidDriver<AndroidElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 
             System.out.println("setup successful");
